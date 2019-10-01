@@ -1,0 +1,149 @@
+ERROR  : 19:24:00: ERROR:  error de sintaxis en o cerca de «distinct»
+LÍNEA 1: select city.city_id, distinct (city.city)
+                              ^
+ERROR  : 19:24:08: ERROR:  error de sintaxis en o cerca de «distinct»
+LÍNEA 1: select city.city_id, distinct city.city
+                              ^
+ERROR  : 19:45:03: ERROR:  no existe la relación «lfilm»
+LÍNEA 2: from lfilm
+              ^
+ERROR  : 19:52:28: ERROR:  la columna «language.name» debe aparecer en la cláusula GROUP BY o ser usada en una función de agregación
+LÍNEA 2:  select max(film.language_id), language.name
+                                        ^
+ERROR  : 19:56:03: ERROR:  error de sintaxis en o cerca de «select»
+LÍNEA 2:  (select language_id
+           ^
+ERROR  : 19:56:09: ERROR:  error de sintaxis en o cerca de «select»
+LÍNEA 2:  (select language_id
+           ^
+ERROR  : 19:57:06: ERROR:  error de sintaxis en o cerca de «select»
+LÍNEA 2:  (select language_id, count(*)
+           ^
+ERROR  : 20:00:24: ERROR:  no se permiten funciones de agregación en WHERE
+LÍNEA 6: where max(s1.language_id) = language.language_id
+               ^
+ERROR  : 20:02:28: ERROR:  error de sintaxis en o cerca de «language»
+LÍNEA 1: select max language.name
+                    ^
+ERROR  : 20:09:02: ERROR:  referencia a la entrada de la cláusula FROM para la tabla «language» no válida
+LÍNEA 3: where language.language_id = film.language.id
+                                      ^
+SUGERENCIA:  Hay una entrada para la tabla «language», pero no puede ser referenciada desde esta parte de la consulta.
+ERROR  : 20:21:21: ERROR:  la columna «rental.rental_id» debe aparecer en la cláusula GROUP BY o ser usada en una función de agregación
+LÍNEA 1: select rental_id, max(customer_id), inventory_id
+                ^
+ERROR  : 20:22:23: ERROR:  la columna «rental.rental_id» debe aparecer en la cláusula GROUP BY o ser usada en una función de agregación
+LÍNEA 1: select rental_id, customer_id, inventory_id
+                ^
+ERROR  : 20:22:41: ERROR:  la columna «rental.inventory_id» debe aparecer en la cláusula GROUP BY o ser usada en una función de agregación
+LÍNEA 1: select customer_id, inventory_id
+                             ^
+ERROR  : 20:23:12: ERROR:  no existe la columna «dec»
+LÍNEA 4: order by dec
+                  ^
+ERROR  : 20:23:34: ERROR:  error de sintaxis en o cerca de «desc»
+LÍNEA 4: order by desc
+                  ^
+ERROR  : 20:23:43: ERROR:  no existe la columna «des»
+LÍNEA 4: order by des
+                  ^
+ERROR  : 20:25:43: ERROR:  error de sintaxis en o cerca de «as»
+LÍNEA 4:  order by nums desc) as s1
+                              ^
+ERROR  : 20:28:09: ERROR:  la columna «s1.customer_id» debe aparecer en la cláusula GROUP BY o ser usada en una función de agregación
+LÍNEA 1: select customer_id, max(nums)
+                ^
+ERROR  : 20:29:27: ERROR:  la columna «s1.customer_id» debe aparecer en la cláusula GROUP BY o ser usada en una función de agregación
+LÍNEA 1: select  max(nums), customer_id
+                            ^
+ERROR  : 20:33:05: ERROR:  error de sintaxis en o cerca de «as»
+LÍNEA 1: select customer_id, max(count(inventory_id) as nums)
+                                                     ^
+ERROR  : 20:33:24: ERROR:  error de sintaxis en o cerca de «)»
+LÍNEA 4:  order by nums desc) as s1
+                            ^
+ERROR  : 20:33:26: ERROR:  error de sintaxis en o cerca de «)»
+LÍNEA 4:  order by nums desc) as s1
+                            ^
+ERROR  : 20:33:26: ERROR:  error de sintaxis en o cerca de «)»
+LÍNEA 4:  order by nums desc) as s1
+                            ^
+ERROR  : 20:33:26: ERROR:  error de sintaxis en o cerca de «)»
+LÍNEA 4:  order by nums desc) as s1
+                            ^
+ERROR  : 20:33:27: ERROR:  error de sintaxis en o cerca de «)»
+LÍNEA 4:  order by nums desc) as s1
+                            ^
+ERROR  : 20:33:27: ERROR:  error de sintaxis en o cerca de «)»
+LÍNEA 4:  order by nums desc) as s1
+                            ^
+ERROR  : 20:33:27: ERROR:  error de sintaxis en o cerca de «)»
+LÍNEA 4:  order by nums desc) as s1
+                            ^
+ERROR  : 20:33:27: ERROR:  error de sintaxis en o cerca de «)»
+LÍNEA 4:  order by nums desc) as s1
+                            ^
+ERROR  : 20:33:27: ERROR:  error de sintaxis en o cerca de «)»
+LÍNEA 4:  order by nums desc) as s1
+                            ^
+ERROR  : 20:33:27: ERROR:  error de sintaxis en o cerca de «)»
+LÍNEA 4:  order by nums desc) as s1
+                            ^
+ERROR  : 20:33:34: ERROR:  error de sintaxis en o cerca de «)»
+LÍNEA 4:  order by nums desc) as s1
+                            ^
+ERROR  : 20:33:35: ERROR:  error de sintaxis en o cerca de «)»
+LÍNEA 4:  order by nums desc) as s1
+                            ^
+ERROR  : 20:33:35: ERROR:  error de sintaxis en o cerca de «)»
+LÍNEA 4:  order by nums desc) as s1
+                            ^
+ERROR  : 20:33:35: ERROR:  error de sintaxis en o cerca de «)»
+LÍNEA 4:  order by nums desc) as s1
+                            ^
+ERROR  : 20:33:36: ERROR:  error de sintaxis en o cerca de «)»
+LÍNEA 4:  order by nums desc) as s1
+                            ^
+ERROR  : 20:33:36: ERROR:  error de sintaxis en o cerca de «)»
+LÍNEA 4:  order by nums desc) as s1
+                            ^
+ERROR  : 20:33:36: ERROR:  error de sintaxis en o cerca de «)»
+LÍNEA 4:  order by nums desc) as s1
+                            ^
+ERROR  : 20:33:36: ERROR:  error de sintaxis en o cerca de «)»
+LÍNEA 4:  order by nums desc) as s1
+                            ^
+ERROR  : 20:33:54: ERROR:  no se pueden anidar llamadas a funciones de agregación
+LÍNEA 1: select customer_id, max(count(inventory_id))
+                                 ^
+ERROR  : 20:39:10: ERROR:  no existe la columna «nums»
+LÍNEA 4: having max(nums)
+                    ^
+ERROR  : 20:41:27: ERROR:  error de sintaxis en o cerca de «select»
+LÍNEA 2: from select customer_id, count(inventory_id) as nums
+              ^
+ERROR  : 20:41:51: ERROR:  las subconsultas en FROM deben tener un alias
+LÍNEA 2: from (select customer_id, count(inventory_id) as nums
+              ^
+SUGERENCIA:  Por ejemplo, FROM (SELECT ...) [AS] foo.
+ERROR  : 20:43:21: ERROR:  la columna «s1.customer_id» debe aparecer en la cláusula GROUP BY o ser usada en una función de agregación
+LÍNEA 1: select customer_id, max(nums)
+                ^
+ERROR  : 20:44:32: ERROR:  error de sintaxis en o cerca de «)»
+LÍNEA 4:  order by nums desc) as s1
+                            ^
+ERROR  : 20:44:35: ERROR:  error de sintaxis en o cerca de «)»
+LÍNEA 1: ) as s1
+         ^
+ERROR  : 21:00:48: ERROR:  error de sintaxis en o cerca de «)»
+LÍNEA 4:  order by nums desc) as s1
+                            ^
+ERROR  : 21:25:04: ERROR:  la columna «category.category_id» debe aparecer en la cláusula GROUP BY o ser usada en una función de agregación
+LÍNEA 1: select category.name, category.category_id
+                               ^
+ERROR  : 21:35:40: ERROR:  error de sintaxis en o cerca de «from»
+LÍNEA 2:   from category, film_category, film, rental, inventory
+           ^
+ERROR  : 21:37:28: ERROR:  error de sintaxis en o cerca de «from»
+LÍNEA 2:   from category, film_category, film, rental, inventory
+           ^
