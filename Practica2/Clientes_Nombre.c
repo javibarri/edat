@@ -10,7 +10,7 @@
  * example 4 with a queries build on-the-fly, the good way
  */
 
-int main(void) {
+int main(int argc, char *argv[]) {
     SQLHENV env;
     SQLHDBC dbc;
     SQLHSTMT stmt;
@@ -21,6 +21,34 @@ int main(void) {
     SQLCHAR last_name[512];
     SQLCHAR create_date[512];
     SQLCHAR address_id[512];
+    SQLCHAR n[512];
+    SQLCHAR a[512];
+    int i;
+
+
+    if (argc != 5) {
+    fprintf(stderr, "Error en los parametros de entrada:\n\n");
+    fprintf(stderr, "%s -n <First_name> -a <Last_name>\n", argv[0]);
+    fprintf(stderr, "Donde:\n");
+    fprintf(stderr, "-n: nombre del cliente\n");
+    fprintf(stderr, "-a: apellido del cliente\n");
+    exit(-1);
+  }
+
+  printf("Practica numero 2, apartado 1\n");
+  printf("Realizada por: Javier Barriuso y Miguel Irastorza\n");
+  printf("Grupo: 1261\n");
+
+  /* comprueba la linea de comandos */
+  for(i = 1; i < argc ; i++) {
+    if (strcmp(argv[i], "-n") == 0) {
+      strcpy(n, argv[++i]);
+    } else if (strcmp(argv[i], "-a") == 0) {
+      strcpy(a, argv[++i]);
+    } else {
+      fprintf(stderr, "Parametro %s es incorrecto\n", argv[i]);
+    }
+  }
 
     /* CONNECT */
     ret = odbc_connect(&env, &dbc);
@@ -31,12 +59,11 @@ int main(void) {
     /* Allocate a statement handle */
     SQLAllocHandle(SQL_HANDLE_STMT, dbc, &stmt);
 
-    SQLPrepare(stmt, (SQLCHAR*) "select customer.customer_id, customer.first_name, customer.last_name, customer.create_date, address.address from customer, address where address.address_id = customer.address_id and customer.first_name = ? ", SQL_NTS);
+    SQLPrepare(stmt, (SQLCHAR*) "select customer.customer_id, customer.first_name, customer.last_name, customer.create_date, address.address from customer, address where address.address_id = customer.address_id and (customer.first_name = ? or customer.last_name = ?) ", SQL_NTS);
 
-    printf("Nombre del cliente  = ");
-    fflush(stdout);
-    while (scanf("%s", nombre) != EOF) {
-        SQLBindParameter(stmt, 1, SQL_PARAM_INPUT, SQL_PARAM_INPUT, SQL_C_CHAR, 0, 0, nombre, 0, NULL);
+        SQLBindParameter(stmt, 1, SQL_PARAM_INPUT, SQL_PARAM_INPUT, SQL_C_CHAR, 0, 0, n, 0, NULL);
+
+        SQLBindParameter(stmt, 2, SQL_PARAM_INPUT, SQL_PARAM_INPUT, SQL_C_CHAR, 0, 0, a, 0, NULL);
         
         SQLExecute(stmt);
         
@@ -58,9 +85,6 @@ int main(void) {
 
         SQLCloseCursor(stmt);
 
-        printf("Nombre del cliente = ");
-        fflush(stdout);
-    }
     printf("\n");
 
     /* free up statement handle */
