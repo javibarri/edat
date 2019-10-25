@@ -1,0 +1,94 @@
+ERROR  : 20:15:17: ERROR:  error de sintaxis en o cerca de «select»
+LÍNEA 13:  (select customer_id, count(inventory_id) as nums
+            ^
+ERROR  : 20:16:46: ERROR:  error de sintaxis en o cerca de «select»
+LÍNEA 13:  (select customer_id, count(inventory_id) as nums
+            ^
+ERROR  : 20:22:36: ERROR:  falta una entrada para la tabla «customer» en la cláusula FROM
+LÍNEA 13:   rental.customer.id = s2.customer_id
+            ^
+ERROR  : 20:31:18: ERROR:  error de sintaxis en o cerca de «category»
+LÍNEA 1: category, film_category, film, rental, inventory,
+         ^
+ERROR  : 20:31:23: ERROR:  error de sintaxis en o cerca de «from»
+LÍNEA 1:  from category, film_category, film, rental, inventory,
+          ^
+ERROR  : 20:36:37: ERROR:  error de sintaxis en o cerca de «select»
+LÍNEA 8:    (select customer_id, count(inventory_id) as nums
+             ^
+ERROR  : 20:36:49: ERROR:  no existe la relación «s2»
+LÍNEA 10:    from rental, s2
+                          ^
+ERROR  : 20:37:25: ERROR:  la referencia a la columna «customer_id» es ambigua
+LÍNEA 9:    (select customer_id, count(inventory_id) as nums
+                    ^
+ERROR  : 20:37:43: ERROR:  falta una entrada para la tabla «s3» en la cláusula FROM
+LÍNEA 17:    having s3.nums = s2.nums) as s3
+                    ^
+ERROR  : 20:38:21: ERROR:  no existe la columna «nums»
+LÍNEA 14:    order by nums desc
+                      ^
+SUGERENCIA:  Hay una columna llamada «nums» en la tabla «s2», pero no puede ser referenciada desde esta parte de la consulta.
+ERROR  : 20:38:56: ERROR:  no existe la columna «numeros»
+LÍNEA 17:    having numeros = s2.nums) as s3
+                    ^
+SUGERENCIA:  Probablemente quiera hacer referencia a la columna «s2.nums» o la columna «s2.nums».
+ERROR  : 20:40:13: ERROR:  no existe la columna «numeros»
+LÍNEA 18:     having numeros = s3.nums) as s4
+                     ^
+SUGERENCIA:  Probablemente quiera hacer referencia a la columna «s3.nums» o la columna «s2.nums».
+ERROR  : 20:41:14: ERROR:  no existe la relación «s2»
+LÍNEA 10:     from rental,s2
+                          ^
+ERROR  : 20:42:10: ERROR:  no existe la columna «numeros»
+LÍNEA 18:     having numeros = s2.nums) as s4
+                     ^
+SUGERENCIA:  Probablemente quiera hacer referencia a la columna «s2.nums» o la columna «s2.nums».
+ERROR  : 20:43:17: ERROR:  la referencia a la columna «customer_id» es ambigua
+LÍNEA 17:     group by customer_id
+                       ^
+ERROR  : 20:43:24: ERROR:  no existe la columna s2.numeros
+LÍNEA 18:     having nums = s2.numeros) as s4
+                            ^
+SUGERENCIA:  Probablemente quiera hacer referencia a la columna «s2.nums» o la columna «s2.nums».
+ERROR  : 20:43:41: ERROR:  no existe la columna «numeros»
+LÍNEA 18:     having numeros = s2.nums) as s4
+                     ^
+SUGERENCIA:  Probablemente quiera hacer referencia a la columna «s2.nums» o la columna «s2.nums».
+ERROR  : 20:47:01: ERROR:  no existe la columna «numeros»
+LÍNEA 17:     having numeros = s2.nums) as s4
+                     ^
+SUGERENCIA:  Probablemente quiera hacer referencia a la columna «s2.nums» o la columna «s2.nums».
+ERROR  : 20:55:08: ERROR:  error de sintaxis en o cerca de «inventory»
+LÍNEA 16:   inventory.inventory_id = rental.inventory_id and
+            ^
+ERROR  : 21:01:29: ERROR:  error de sintaxis en o cerca de «select»
+LÍNEA 8:   (select customer_id, count(inventory_id) as nums
+            ^
+ERROR  : 21:09:10: ERROR:  error de sintaxis en o cerca de «dec»
+LÍNEA 24:  order by nums dec
+                         ^
+ERROR  : 21:09:14: ERROR:  error de sintaxis en o cerca de «des»
+LÍNEA 24:  order by nums des
+                         ^
+ERROR  : 21:18:20: ERROR:  error de sintaxis en o cerca de «select»
+LÍNEA 10:  (select language.name, count(language.name) as nums
+            ^
+ERROR  : 21:18:27: ERROR:  error de sintaxis en o cerca de «select»
+LÍNEA 10:  (select language.name, count(language.name) as nums
+            ^
+ERROR  : 21:18:35: ERROR:  falta una entrada para la tabla «language» en la cláusula FROM
+LÍNEA 1: select s1.language.name
+                ^
+ERROR  : 21:24:06: ERROR:  la columna «rental.rental_date» debe aparecer en la cláusula GROUP BY o ser usada en una función de agregación
+LÍNEA 1: select extract(year from rental_date), count (rental_id)
+                                  ^
+ERROR  : 21:24:16: ERROR:  la columna «rental.rental_date» debe aparecer en la cláusula GROUP BY o ser usada en una función de agregación
+LÍNEA 1: select extract(year from rental_date), count (rental_id)
+                                  ^
+ERROR  : 21:29:46: ERROR:  error de sintaxis en o cerca de «dec»
+LÍNEA 4: order by nums dec
+                       ^
+ERROR  : 21:33:39: ERROR:  error de sintaxis en o cerca de «select»
+LÍNEA 3:  select customer_id, count(inventory_id) as nums
+          ^
