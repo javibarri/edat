@@ -43,10 +43,6 @@ int main(int argc, char *argv[]) {
     /* Allocate a statement handle */
     SQLAllocHandle(SQL_HANDLE_STMT, dbc, &stmt);
 
-    /* SQLPrepare(stmt, (SQLCHAR*) "select f.film_id, f.title, f.release_year, f.length, l.name, f.description, a.first_name, a.last_name \
-    from film f, language l, actor a, film_actor fa \
-    where f.language_id = l.language_id and f.film_id = fa.film_id and fa.actor_id = a.actor_id and f.title = ? ", SQL_NTS);
-*/
 
     SQLPrepare(stmt, (SQLCHAR*) "select f.film_id, f.title, f.release_year, f.length, l.name, f.description, a.first_name, a.last_name \
     from film f, language l, actor a, film_actor fa \
