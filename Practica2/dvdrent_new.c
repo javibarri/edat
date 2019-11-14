@@ -65,7 +65,7 @@ int main(int argc, char *argv[]) {
     ret = SQLExecute(stmt);
     if (ret < 0) {
         odbc_extract_error("Error", stmt, SQL_HANDLE_STMT);
-        printf ("error seleccionando el inventory");
+        printf ("Error seleccionando el inventory");
     }
 
     SQLBindCol(stmt, 1, SQL_C_SLONG, &inventory_id, sizeof(inventory_id), NULL);
@@ -88,26 +88,26 @@ int main(int argc, char *argv[]) {
     ret = SQLExecute(stmt2);
     if (ret < 0) {
         odbc_extract_error("Error", stmt2, SQL_HANDLE_STMT);
-        printf("error metiendo en rental");
+        printf("Error metiendo en rental\n");
     }
 
     SQLBindCol(stmt2, 1, SQL_C_SLONG, &rental_id, sizeof(inventory_id), NULL);
     ret = SQLFetch(stmt2);
     if (!SQL_SUCCEEDED(ret)) {
-        printf ("No ha sido posible insertar");
+        printf ("No ha sido posible insertar\n");
         return EXIT_FAILURE;
     }
 
 
     SQLPrepare(stmt, (SQLCHAR*) "INSERT INTO payment(rental_id, amount) \
     VALUES\
-    (rental_id, amount) ", SQL_NTS);
+    (?, ?) ", SQL_NTS);
     SQLBindParameter(stmt, 1, SQL_PARAM_INPUT, SQL_C_SLONG, SQL_INTEGER, 0, 0, &rental_id, 0, NULL);
     SQLBindParameter(stmt, 2, SQL_PARAM_INPUT, SQL_C_SLONG, SQL_INTEGER, 0, 0, &amount, 0, NULL);
     ret = SQLExecute(stmt3);
     if (ret < 0) {
         odbc_extract_error("Error", stmt3, SQL_HANDLE_STMT);
-        printf("error metiendo en payment");
+        printf("Error metiendo en payment");
     }
 
 
