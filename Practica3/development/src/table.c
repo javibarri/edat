@@ -28,6 +28,10 @@ struct table_ {
 	// For you to fill in
     int nCols;
     type_t *tipos;
+    long first_position;
+    long last_position;
+    char *buf;
+    FILE *f;
 };
 
 /* 
@@ -99,7 +103,7 @@ table_t* table_open(char* path) {
     table_t *t;
     
     
-    f=fopen(path, "r");
+    f=fopen(path, "a+");
     if(f==NULL){
         fprintf(stderr, "Error abriendo el fichero");
         return 0;
@@ -115,7 +119,12 @@ table_t* table_open(char* path) {
     t->tipos=(type_t*)malloc(t->nCols*sizeof(type_t));
     fread(t->tipos, sizeof(type_t), t->nCols, f);
 
-    return NULL;
+    t->first_position=ftell(f);
+
+    t->f = f;
+    t->buf = NULL;
+
+    return t;
 }
 
 /* 
@@ -138,6 +147,8 @@ void table_close(table_t* table) {
     free(table->tipos);
     table->tipos = NULL;
 
+    fclose(table->f);
+
     free(table);
     table = NULL;
     return;
@@ -152,7 +163,7 @@ void table_close(table_t* table) {
     table:  The table on which we want to operate.
     
     Returns:
-        n>0:    The table has n columns
+        n>0:    The table has n columnsclose(f);
         n<0:    Incorrect parameter
 */
 int table_ncols(table_t* table) {
@@ -212,7 +223,12 @@ type_t*table_types(table_t* table) {
     n<0:    error in the parameter
 */
 long table_first_pos(table_t* table) {
-    return -1;
+    if(table == NULL)
+        return -1;
+    else
+    {
+        return table->first_position;
+    }
 }
 
 /* 
@@ -231,7 +247,12 @@ long table_first_pos(table_t* table) {
     n<=0:   error in the parameter
 */
 long table_last_pos(table_t* table) {
-    return -1;
+    if(table == NULL)
+        return -1;
+
+    fseek(table->f, 0,SEEK_END);
+    return ftell(table->f);
+    
 }
 
 /* 
@@ -254,7 +275,22 @@ long table_last_pos(table_t* table) {
     after it has been read.
 */
 long table_read_record(table_t* t, long pos) {
-    return -1;
+    int len;
+    char *buf;
+    if(t == NULL)
+        return -1;
+
+    if(t->buf != NULL){
+        free(t->buf);
+    }
+
+    fseek(t->f, pos, SEEK_SET);
+    fread(&len, sizeof(int), 1 , t->f);
+
+    t->buf = (char *) malloc(len);
+    fread(t->buf,sizeof(char), len, t->f);
+
+    return ftell(t->f);
 }
 
 
@@ -278,7 +314,18 @@ long table_read_record(table_t* t, long pos) {
     of the file).
 */
 void *table_get_col(table_t* table, int col) {
+    char *aux;
+    int i;
+
+    if(table == NULL || col >= table->nCols || table->buf == NULL)
     return NULL;
+
+    aux = table->buf;
+    for(i=0; i<col; i++){
+    aux+=value_length(table->tipos[i], aux);
+    }
+
+    return (void*)aux;
 }
 
 /*  void table_insert_record(table_t* table, void** values);
@@ -299,5 +346,5 @@ void *table_get_col(table_t* table, int col) {
 */
 int table_insert_record(table_t* t, void** values) {
     Primero saber el final del registro y luego escribir (al final)
-    return 1;
+ return 1;
 } 
