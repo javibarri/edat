@@ -64,7 +64,7 @@ int table_create(char* path, int ncols, type_t* types) {
     /*Escribir primero el numero de columnas luego el array de los tipos de datos */
     FILE *f;
     
-    f=fopen(path, "w");
+    f=fopen(path, "w+");
     if(f==NULL){
         fprintf(stderr, "Error abriendo el fichero");
         return 0;
@@ -283,6 +283,10 @@ long table_read_record(table_t* t, long pos) {
     if(t == NULL)
         return -1;
 
+    if (pos == table_last_pos(t)) {
+        return -1;
+    }
+
     if(t->buf != NULL){
         free(t->buf);
     }
@@ -349,21 +353,32 @@ void *table_get_col(table_t* table, int col) {
 */
 int table_insert_record(table_t* table, void** values) {
     int i;
-    size_t len;
-	if (table == NULL || values == NULL) 
+    int len;
+	
+    if (table == NULL || values == NULL) 
         return;
 
-    table->last_position = table_last_pos;
+    /* table->last_position = table_last_pos(table); */
 
-	fseek(table->f,table->last_position, SEEK_SET);
+    fseek(table->f, 0,SEEK_END);
 
+    
+	/*fseek(table->f,table->last_position, SEEK_SET); */
+
+    len=0;
+    for(i=0; i<table->nCols; i++){
+        len+=value_length(table->tipos[i], values[i]);
+    }
+
+    fwrite(&len,sizeof(int), 1,table->f);
+    
     for(i=0;i<table->nCols;i++){
-        len=value_length(table->tipos[i], values[i]);
-        fwrite(&len,sizeof(size_t), 1,table->f);
+        len=value_length(table->tipos[i], values[i]);    
         fwrite(values[i], len, 1, table->f);
     }
 
     table->last_position=ftell(table->f);
+
     return 1;
 }
 

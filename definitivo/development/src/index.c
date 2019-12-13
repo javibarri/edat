@@ -4,6 +4,11 @@
 #include "index.h"
 
 struct index_ {
+  int *key; /*array de claves */
+  int *n;  /*array de numero de elementos que contiene cada clave */
+  int numberKeys;
+  int **pos; /*Array donde guardas todos los registros */
+  type_t *tipos;
 };
 
 
@@ -25,7 +30,19 @@ struct index_ {
    0:   parameter error or file creation problem. Index not created.
  */
 int index_create(char *path, type_t type) {
-  return 0;
+  FILE *f;
+    
+  f=fopen(path, "w+");
+  if(f==NULL){
+      fprintf(stderr, "Error abriendo el fichero");
+      return 0;
+  }
+
+  fwrite(type, sizeof(type_t), 1, f);
+
+  fclose(f);
+
+  return 1;
 }
 
 
@@ -51,7 +68,27 @@ int index_create(char *path, type_t type) {
 
  */
 index_t* index_open(char* path) {
-  return NULL;
+  FILE *f;
+  index_t *t;
+  
+  
+  f=fopen(path, "a+");
+  if(f==NULL){
+      fprintf(stderr, "Error abriendo el fichero");
+      return 0;
+  }
+  
+  t = (index_t*)malloc(sizeof(index_t));
+  if(t==NULL) 
+    return NULL;
+
+  fseek(f, 0,SEEK_SET);
+  
+  t->tipos=(type_t*)malloc(sizeof(type_t));
+  fread(t->tipos, sizeof(type_t), 1, f);
+
+
+  return t;
 }
 
 
